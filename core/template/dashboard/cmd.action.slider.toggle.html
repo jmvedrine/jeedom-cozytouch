@@ -1,6 +1,6 @@
 <div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" >
     <center>
- 		<div class="cmdName" style="margin : 5px 5px 5px 5px;font-weight: bold;font-size : 12px;#hideCmdName#">#name_display#</div>
+ 		<div class="cmdName #hide_name#" style="margin : 5px 5px 5px 5px;font-weight: bold;font-size : 12px;">#name_display#</div>
       	<input class="Toggle#uid#" style="width : 0px !important" type="checkbox" id="switch#id#"/>
         <label for="switch#id#" class="cmdName#id# ch#id#"></label>
 
@@ -46,15 +46,15 @@
 		}
     </style>
     <script>
-		jeedom.cmd.update['#id#'] = function(_options){
+		jeedom.cmd.addUpdateFunction('#id#', function(_options) {
 			$('.Toggle#id#').empty();
 			if (_options.display_value == '0' || _options.display_value == 0 || _options.display_value == '') {
 				$('.Toggle#uid#').prop('checked', false);
 			}else {
 				$('.Toggle#uid#').prop('checked', true);
 			}
-		}
-		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+		})
+		jeedom.cmd.refreshValue([{ cmd_id: '#id#', value: '#state#', display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#', unit: '#unite#' }])
 		$('.Toggle#uid#').on('click', function() {
 			if ( $('.Toggle#uid#').is( ":checked" ) ){
 				jeedom.cmd.execute({id: '#id#', value: {slider:'1'}});
